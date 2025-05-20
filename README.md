@@ -144,3 +144,9 @@ POD                     NAME               CPU(cores)   MEMORY(bytes)
 vllm-66855dfbf7-m5njg   inference-server   850m         7732Mi
 vllm-66855dfbf7-m5njg   vllm-token-stats   83m          284Mi
 ```
+
+# vLLM monitoring
+
+Use [dashboard.json](dashboard.json) In Google Cloud Monitoring to see token usage.
+
+![Dashboard](dashboard.png)

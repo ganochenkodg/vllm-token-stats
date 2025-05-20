@@ -1,0 +1,103 @@
+{
+  "displayName": "vLLM Token stats",
+  "dashboardFilters": [
+    {
+      "filterType": "METRIC_LABEL",
+      "labelKey": "client_name",
+      "templateVariable": "Client",
+      "valueType": "STRING_ARRAY"
+    },
+    {
+      "filterType": "METRIC_LABEL",
+      "labelKey": "exported_namespace",
+      "templateVariable": "Namespace",
+      "valueType": "STRING_ARRAY"
+    }
+  ],
+  "labels": {},
+  "mosaicLayout": {
+    "columns": 48,
+    "tiles": [
+      {
+        "height": 15,
+        "width": 16,
+        "widget": {
+          "title": "Input tokens",
+          "xyChart": {
+            "chartOptions": {
+              "displayHorizontal": false,
+              "mode": "COLOR"
+            },
+            "dataSets": [
+              {
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "prometheusQuery": "vllm_prompt_tokens{${Client},${Namespace}}"
+                }
+              }
+            ],
+            "thresholds": [],
+            "yAxis": {
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "xPos": 16,
+        "height": 15,
+        "width": 16,
+        "widget": {
+          "title": "Output tokens",
+          "xyChart": {
+            "chartOptions": {
+              "displayHorizontal": false,
+              "mode": "COLOR"
+            },
+            "dataSets": [
+              {
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "prometheusQuery": "vllm_completion_tokens{${Client},${Namespace}}"
+                }
+              }
+            ],
+            "thresholds": [],
+            "yAxis": {
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "xPos": 32,
+        "height": 15,
+        "width": 16,
+        "widget": {
+          "title": "Total tokens",
+          "xyChart": {
+            "chartOptions": {
+              "displayHorizontal": false,
+              "mode": "COLOR"
+            },
+            "dataSets": [
+              {
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "prometheusQuery": "vllm_total_tokens{${Client},${Namespace}}"
+                }
+              }
+            ],
+            "thresholds": [],
+            "yAxis": {
+              "scale": "LINEAR"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
