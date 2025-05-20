@@ -52,7 +52,18 @@ vllm_total_tokens{namespace="test",client_name="benchmark",full_path="/v1/comple
 You can install example yaml manifest with all required components (deployment with vLLM and proxy, service, rbac, PodMonitor) in GKE Autopilot cluster:
 
 ```
-kubectl apply -f
+kubectl apply -f https://raw.githubusercontent.com/ganochenkodg/vllm-token-stats/refs/heads/main/vllm-l4.yaml
+```
+
+Example output:
+
+```
+serviceaccount/log-proxy-sa created
+clusterrole.rbac.authorization.k8s.io/log-proxy-cluster-role created
+clusterrolebinding.rbac.authorization.k8s.io/log-proxy-cluster-role-binding created
+deployment.apps/vllm created
+service/vllm-endpoint created
+podmonitoring.monitoring.googleapis.com/vllm-token-stats created
 ```
 
 # performance
