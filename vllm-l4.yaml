@@ -61,6 +61,7 @@ spec:
             nvidia.com/gpu: 1
       - name: vllm-token-stats
         image: dganochenko/vllm-token-stats:1.0
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 500m
