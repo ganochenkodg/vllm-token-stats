@@ -46,7 +46,7 @@ spec:
       - name: inference-server
         image: vllm/vllm-openai:v0.7.3
         command: [ "/bin/sh", "-c" ]
-        args: [ "vllm serve unsloth/Meta-Llama-3.1-8B-Instruct --host=0.0.0.0 --port=8000 --dtype=bfloat16 --max-model-len 8192 --disable-log-stats" ]
+        args: [ "vllm serve unsloth/Meta-Llama-3.1-8B-Instruct --host=0.0.0.0 --port=8000 --dtype=bfloat16 --max-model-len 8192" ]
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -108,3 +108,7 @@ spec:
   - port: 3000
     interval: 30s
     path: /metrics
+  - port: 8000
+    interval: 30s
+    path: /metrics
+

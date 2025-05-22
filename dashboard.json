@@ -12,6 +12,12 @@
       "labelKey": "exported_namespace",
       "templateVariable": "Namespace",
       "valueType": "STRING_ARRAY"
+    },
+    {
+      "filterType": "METRIC_LABEL",
+      "labelKey": "pod",
+      "templateVariable": "VLLM_Host",
+      "valueType": "STRING_ARRAY"
     }
   ],
   "labels": {},
@@ -23,22 +29,31 @@
         "width": 16,
         "widget": {
           "title": "Input tokens",
+          "id": "",
           "xyChart": {
             "chartOptions": {
               "displayHorizontal": false,
-              "mode": "COLOR"
+              "mode": "COLOR",
+              "showLegend": false
             },
             "dataSets": [
               {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
                 "plotType": "LINE",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
-                  "prometheusQuery": "vllm_prompt_tokens{${Client},${Namespace}}"
+                  "outputFullDuration": false,
+                  "prometheusQuery": "vllm_prompt_tokens{${Client},${Namespace}, ${VLLM_Host}}",
+                  "unitOverride": ""
                 }
               }
             ],
             "thresholds": [],
             "yAxis": {
+              "label": "",
               "scale": "LINEAR"
             }
           }
@@ -50,22 +65,31 @@
         "width": 16,
         "widget": {
           "title": "Output tokens",
+          "id": "",
           "xyChart": {
             "chartOptions": {
               "displayHorizontal": false,
-              "mode": "COLOR"
+              "mode": "COLOR",
+              "showLegend": false
             },
             "dataSets": [
               {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
                 "plotType": "LINE",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
-                  "prometheusQuery": "vllm_completion_tokens{${Client},${Namespace}}"
+                  "outputFullDuration": false,
+                  "prometheusQuery": "vllm_completion_tokens{${Client},${Namespace}, ${VLLM_Host}}",
+                  "unitOverride": ""
                 }
               }
             ],
             "thresholds": [],
             "yAxis": {
+              "label": "",
               "scale": "LINEAR"
             }
           }
@@ -77,22 +101,154 @@
         "width": 16,
         "widget": {
           "title": "Total tokens",
+          "id": "",
           "xyChart": {
             "chartOptions": {
               "displayHorizontal": false,
-              "mode": "COLOR"
+              "mode": "COLOR",
+              "showLegend": false
             },
             "dataSets": [
               {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
                 "plotType": "LINE",
                 "targetAxis": "Y1",
                 "timeSeriesQuery": {
-                  "prometheusQuery": "vllm_total_tokens{${Client},${Namespace}}"
+                  "outputFullDuration": false,
+                  "prometheusQuery": "vllm_total_tokens{${Client},${Namespace}, ${VLLM_Host}}",
+                  "unitOverride": ""
                 }
               }
             ],
             "thresholds": [],
             "yAxis": {
+              "label": "",
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "yPos": 15,
+        "height": 15,
+        "width": 16,
+        "widget": {
+          "title": "Average latency",
+          "id": "",
+          "xyChart": {
+            "chartOptions": {
+              "displayHorizontal": false,
+              "mode": "COLOR",
+              "showLegend": false
+            },
+            "dataSets": [
+              {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "outputFullDuration": false,
+                  "prometheusQuery": "rate(vllm:e2e_request_latency_seconds_sum{${VLLM_Host}}[30s])/rate(vllm:e2e_request_latency_seconds_count{${VLLM_Host}}[30s])",
+                  "unitOverride": "s"
+                }
+              }
+            ],
+            "thresholds": [],
+            "yAxis": {
+              "label": "",
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "yPos": 15,
+        "xPos": 16,
+        "height": 15,
+        "width": 16,
+        "widget": {
+          "title": "Token throughput",
+          "id": "",
+          "xyChart": {
+            "chartOptions": {
+              "displayHorizontal": false,
+              "mode": "COLOR",
+              "showLegend": false
+            },
+            "dataSets": [
+              {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "outputFullDuration": false,
+                  "prometheusQuery": "rate(vllm:prompt_tokens_total{${VLLM_Host}}[30s])",
+                  "unitOverride": ""
+                }
+              },
+              {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "outputFullDuration": false,
+                  "prometheusQuery": "rate(vllm:generation_tokens_total{${VLLM_Host}}[30s])",
+                  "unitOverride": ""
+                }
+              }
+            ],
+            "thresholds": [],
+            "yAxis": {
+              "label": "Token/s",
+              "scale": "LINEAR"
+            }
+          }
+        }
+      },
+      {
+        "yPos": 15,
+        "xPos": 32,
+        "height": 15,
+        "width": 16,
+        "widget": {
+          "title": "GPU cache utilization",
+          "id": "",
+          "xyChart": {
+            "chartOptions": {
+              "displayHorizontal": false,
+              "mode": "COLOR",
+              "showLegend": false
+            },
+            "dataSets": [
+              {
+                "breakdowns": [],
+                "dimensions": [],
+                "legendTemplate": "",
+                "measures": [],
+                "plotType": "LINE",
+                "targetAxis": "Y1",
+                "timeSeriesQuery": {
+                  "outputFullDuration": false,
+                  "prometheusQuery": "vllm:gpu_cache_usage_perc{${VLLM_Host}}",
+                  "unitOverride": "%"
+                }
+              }
+            ],
+            "thresholds": [],
+            "yAxis": {
+              "label": "",
               "scale": "LINEAR"
             }
           }
